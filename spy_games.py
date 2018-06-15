@@ -27,10 +27,11 @@ class UserVk(object):
         })
         try:
             self.id = response.json()['response'][0]['id']
-            self.get_friends()
-            self.get_groups()
         except KeyError:
             self.id = None
+        else:
+            self.get_friends()
+            self.get_groups()
 
     def get_friends(self):
         response = requests.get('https://api.vk.com/method/friends.get', {
