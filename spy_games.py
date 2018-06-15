@@ -84,7 +84,7 @@ def get_user():
     while True:
         user_name = input('Введите короткое имя или id пользователя ВКонтакте: ')
         user_vk = UserVk(user_name)
-        if user_vk:
+        if user_vk.id:
             if user_vk.friends and user_vk.groups:
                 break
             else:
