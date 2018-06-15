@@ -12,7 +12,7 @@ import time
 import requests
 
 
-class UserVk:
+class UserVk(object):
     id = None
     friends = []
     groups = []
@@ -30,7 +30,7 @@ class UserVk:
             self.get_friends()
             self.get_groups()
         except KeyError:
-            pass
+            self.id = None
 
     def get_friends(self):
         response = requests.get('https://api.vk.com/method/friends.get', {
@@ -49,7 +49,7 @@ class UserVk:
         self.groups = response.json()['response']['items']
 
 
-class GroupVk:
+class GroupVk(object):
     gid = None
     name = ''
     count = 0
@@ -124,8 +124,8 @@ def save_result(private_groups):
             'gid': group.gid,
             'members_count': group.count
         })
-    with open('groups.json', 'w') as file:
-        json.dump(result, file)
+    with open('groups.json', 'w') as f:
+        json.dump(result, f)
     print('Результаты поиска записаны в файл')
 
 
